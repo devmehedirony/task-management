@@ -5,13 +5,14 @@ import AddTasks from "../Pages/AddTasks";
 import ManageTask from "../Pages/ManageTask";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import PrivateRoutes from "./PrivateRoutes";
 
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout></RootLayout>,
+    element: <PrivateRoutes><RootLayout></RootLayout></PrivateRoutes>,
     children: [
       {
         path: '/',
