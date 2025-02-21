@@ -1,7 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useAuth } from './../Hooks/useAuth';
 
 const NavBar = () => {
-  const {user} useAuth()
+  const { user } = useAuth()
+  
   const links = <>
     <NavLink
       to="/"
@@ -26,15 +28,21 @@ const NavBar = () => {
       Manage Task
     </NavLink>
 
-   
+    {
+      user ? <button className="bg-blue-400 text-white font-bold px-8 py-4">LogOut</button> : <>
+        <Link to={`/login`} className="bg-blue-600 text-white  font-bold px-8 py-4">Login</Link>
+        <Link to={`/register`} className="bg-blue-600 text-white  font-bold px-8 py-4">Register</Link>
+        
+      </>
+    }
   </>
   return (
     <div className=" flex items-center justify-between py-6 w-11/12 mx-auto">
       <div>
-        <h2 className="font-semibold text-3xl text-black font-primary">My <span className="text-blue-500 ">Task</span></h2>
+        <h2 className="font-semibold text-3xl text-black font-primary">My<span className="text-blue-500 ">Task</span></h2>
       </div>
       <div>
-        <ul>
+        <ul className="space-x-6">
           {links}
         </ul>
       </div>

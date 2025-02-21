@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 import app from "../firebase/firebase.config";
 
 
-export const auth = createContext()
+export const authProvider = createContext()
 const auth = getAuth(app)
 const provider = new GoogleAuthProvider();
 
@@ -15,7 +15,7 @@ const AuthContext = ({ children }) => {
 
 
   useEffect(() => {
-    const unSubscribe = onContextStateChanged(auth, currentUser => {
+    const unSubscribe = onAuthStateChanged(auth, currentUser => {
        console.log(currentUser);
       setUser(currentUser)
 
@@ -67,9 +67,9 @@ const AuthContext = ({ children }) => {
     updatedUser
   }
   return (
-    <auth.Provider value={authInfo}>
+    <authProvider.Provider value={authInfo}>
       {children}
-    </auth.Provider>
+    </authProvider.Provider>
   );
 };
 
