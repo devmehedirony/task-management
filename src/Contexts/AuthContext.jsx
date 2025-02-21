@@ -47,11 +47,10 @@ const AuthContext = ({ children }) => {
     return signInWithPopup(auth, provider)
   }
 
-  const updatedUser = (name, photo) => {
+  const updatedUser = (name) => {
     setLoading(false)
     return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo
+      displayName: name
 
     })
   }
