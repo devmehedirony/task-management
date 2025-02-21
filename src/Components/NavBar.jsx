@@ -1,8 +1,18 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from './../Hooks/useAuth';
 
 const NavBar = () => {
-  const { user } = useAuth()
+  const { user, logOut } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogOut = () => {
+    logOut()
+      .then(res => {
+        navigate('/login')
+      })
+  }
+
+  
   
   const links = <>
     <NavLink
@@ -29,8 +39,8 @@ const NavBar = () => {
     </NavLink>
 
     {
-      user ? <button className="bg-blue-400 text-white font-bold px-8 py-4">LogOut</button> : <>
-        <Link to={`/login`} className="bg-blue-600 text-white  font-bold px-8 py-4">Login</Link>
+      user ? <button onClick={handleLogOut} className="bg-blue-400 text-white font-bold px-8 py-4 cursor-pointer">LogOut</button> : <>
+        <Link to={`/login`} className="bg-blue-600 text-white  font-bold px-8 py-4 ">Login</Link>
         <Link to={`/register`} className="bg-blue-600 text-white  font-bold px-8 py-4">Register</Link>
         
       </>

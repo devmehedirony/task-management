@@ -28,7 +28,7 @@ const Register = () => {
             // user data save to the database
             const userData = {
               userName: data.name,
-              mail: data.email
+              email: data.email
             }
             axios.post('/users', userData)
               .then(res => {
@@ -54,7 +54,7 @@ const Register = () => {
       .then(res => {
         const userData = {
           userName: res.user.displayName,
-          mail: res.user.email
+          email: res.user.email
         }
         axios.post('/users', userData)
           .then(res => {
@@ -65,10 +65,11 @@ const Register = () => {
                 text: "Registration Done",
                 icon: "success"
               });
-              navigate('/')
+             
 
             }
           })
+        navigate('/')
     })
   }
   return (

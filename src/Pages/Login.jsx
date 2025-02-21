@@ -35,8 +35,9 @@ const Login = () => {
         .then(res => {
           const userData = {
             userName: res.user.displayName,
-            mail: res.user.email
+            email: res.user.email
           }
+          console.log(userData);
           axios.post('/users', userData)
             .then(res => {
               console.log(res.data);
@@ -46,10 +47,11 @@ const Login = () => {
                   text: "Registration Done",
                   icon: "success"
                 });
-                navigate('/')
-  
+                
               }
             })
+          navigate('/')
+
       })
     }
 
