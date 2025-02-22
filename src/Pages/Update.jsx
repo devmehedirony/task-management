@@ -8,9 +8,7 @@ const Update = () => {
   const axios = useAxios()
 
   const { id } = useParams()
-  console.log(id);
   const data = useLoaderData()
-  console.log(data);
 
 
 
@@ -21,7 +19,6 @@ const Update = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    console.log(data);
     const task = {
       title: data.title,
       description: data.description,
@@ -30,7 +27,6 @@ const Update = () => {
 
     axios.patch(`/task/${id}`, task)
       .then(res => {
-        console.log(res.data);
         if (res.data.modifiedCount > 0) {
           Swal.fire({
             title: "Task",

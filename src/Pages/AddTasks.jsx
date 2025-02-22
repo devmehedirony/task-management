@@ -13,7 +13,6 @@ const AddTasks = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    console.log(data);
     const task = {
       title: data.title,
       description: data.description,
@@ -23,7 +22,6 @@ const AddTasks = () => {
 
     axios.post('/tasks', task)
       .then(res => {
-        console.log(res.data);
         if (res.data.insertedId) {
           Swal.fire({
             title: "Task",
@@ -51,7 +49,7 @@ const AddTasks = () => {
             <label className="block text-sm font-medium">Task Stage</label>
             <select className="w-full p-2 border rounded-md mt-1 " {...register("category", { required: true })}>
               <option value="TODO">TODO</option>
-              <option value="IN PROGRESS">PROGRESS</option>
+              <option value="PROGRESS">PROGRESS</option>
               <option value="DONE">DONE</option>
             </select>
           </div>

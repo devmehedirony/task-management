@@ -24,10 +24,6 @@ const router = createBrowserRouter([
         element: <AddTasks></AddTasks>
       },
       {
-        path: '/manageTask',
-        element: <ManageTask></ManageTask>
-      },
-      {
         path: 'update/:id',
         element: <Update></Update>,
         loader: ({ params }) => fetch(`http://localhost:5000/task/${params.id}`)

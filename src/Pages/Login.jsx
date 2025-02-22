@@ -19,8 +19,7 @@ const Login = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-
-    console.log(data);
+   
     login(data.email, data.password)
       .then(res => {
         Swal.fire("Login Success");
@@ -37,10 +36,8 @@ const Login = () => {
             userName: res.user.displayName,
             email: res.user.email
           }
-          console.log(userData);
           axios.post('/users', userData)
             .then(res => {
-              console.log(res.data);
               if (res.data.insertedId) {
                 Swal.fire({
                   title: `${res.user.displayName}`,

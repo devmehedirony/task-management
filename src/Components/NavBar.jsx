@@ -29,15 +29,7 @@ const NavBar = () => {
     >
       Add Task
     </NavLink>
-
-    <NavLink
-      to="/manageTask"
-      className={({ isActive }) => isActive ? "bg-black text-white rounded-xl font-bold px-8 py-4" : ""
-      }
-    >
-      Manage Task
-    </NavLink>
-
+   
     {
       user ? <button onClick={handleLogOut} className="bg-blue-400 text-white font-bold px-8 py-4 cursor-pointer">LogOut</button> : <>
         <Link to={`/login`} className="bg-blue-600 text-white  font-bold px-8 py-4 ">Login</Link>

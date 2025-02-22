@@ -19,8 +19,7 @@ const Register = () => {
   } = useForm()
 
   const onSubmit = async (data) => { 
-
-    console.log(data);
+  
     createUser(data.email, data.password)
       .then(res => {
         updatedUser(data.name)
@@ -32,7 +31,6 @@ const Register = () => {
             }
             axios.post('/users', userData)
               .then(res => {
-                console.log(res.data);
                 if (res.data.insertedId) {
                   Swal.fire({
                     title: `${data.name}`,
@@ -58,7 +56,6 @@ const Register = () => {
         }
         axios.post('/users', userData)
           .then(res => {
-            console.log(res.data);
             if (res.data.insertedId) {
               Swal.fire({
                 title: `${res.user.displayName}`,
