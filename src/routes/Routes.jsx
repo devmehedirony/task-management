@@ -6,6 +6,7 @@ import ManageTask from "../Pages/ManageTask";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PrivateRoutes from "./PrivateRoutes";
+import Update from "../Pages/Update";
 
 
 
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
         path: '/manageTask',
         element: <ManageTask></ManageTask>
       },
+      {
+        path: 'update/:id',
+        element: <Update></Update>,
+        loader: ({ params }) => fetch(`http://localhost:5000/task/${params.id}`)
+      }
 
     ]
   },
