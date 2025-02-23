@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: 'update/:id',
         element: <Update></Update>,
-        loader: ({ params }) => fetch(`http://localhost:5000/task/${params.id}`)
+        loader: ({ params }) => fetch(`https://task-management-server-klfw.onrender.com/task/${params.id}`)
       }
 
     ]

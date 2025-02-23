@@ -9,7 +9,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import io from "socket.io-client";
 import { useEffect } from "react";
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://task-management-server-klfw.onrender.com");
 
 const TaskSection = () => {
   const axios = useAxios();
@@ -22,7 +22,7 @@ const TaskSection = () => {
       return res.data
     }
   })
- 
+
   const { data: taskProgress = [], refetch: progressUpdate } = useQuery({
     queryKey: ['progress'],
     queryFn: async () => {
@@ -31,7 +31,7 @@ const TaskSection = () => {
     }
   })
 
-  const { data: taskDone = [], refetch: doneUpdate  } = useQuery({
+  const { data: taskDone = [], refetch: doneUpdate } = useQuery({
     queryKey: ['done'],
     queryFn: async () => {
       const res = await axios.get("/tasks?category=DONE")
@@ -40,21 +40,21 @@ const TaskSection = () => {
   })
   useEffect(() => {
     socket.on("taskUpdated", (updatedTask) => {
-    
+
       console.log("Task updated:", updatedTask);
 
-     
+
       queryClient.invalidateQueries(['todo']);
       queryClient.invalidateQueries(['progress']);
       queryClient.invalidateQueries(['done']);
     });
-    
+
     return () => {
       socket.off("taskUpdated");
     };
   }, [queryClient]);
 
- 
+
 
   // TODOS Drop Zone
   const [{ isOver: isOverTodo }, dropTodo] = useDrop(() => ({

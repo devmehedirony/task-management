@@ -1,8 +1,10 @@
-# React + Vite
+# Task Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# key features:
+- Authentication: Google Sign
+- Task Management: CRUD operations for tasks with drag-and-drop functionality.
+- Database & Persistence: MongoDB for task storage, real-time updates with WebSockets.
+- Responsiveness: Mobile and desktop support
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
