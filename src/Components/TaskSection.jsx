@@ -108,7 +108,7 @@ const TaskSection = () => {
           <FcTodoList />
           TODOS
         </h2>
-        <div ref={dropTodo} className={`space-y-4 ${isOverTodo ? "bg-gray-300 " : ""} min-h-96`}>
+        <div ref={dropTodo} className={`space-y-4 ${isOverTodo ? "bg-gray-300 " : ""} lg:min-h-96`}>
           {taskTodo.map((todo, idx) => (
             <TodoCard key={idx} todo={todo} refetch={todoUpdate} />
           ))}
@@ -121,7 +121,7 @@ const TaskSection = () => {
           <FcTodoList />
           PROGRESS
         </h2>
-        <div ref={dropProgress} className={`space-y-4 ${isOverProgress ? "bg-gray-300 " : ""} min-h-96`}>
+        <div ref={dropProgress} className={`space-y-4 ${isOverProgress ? "bg-gray-300 " : ""} lg:min-h-96`}>
           {taskProgress.map((prog, idx) => (
             <Progress key={idx} prog={prog} refetch={progressUpdate} />
           ))}
@@ -134,7 +134,7 @@ const TaskSection = () => {
           <FcTodoList />
           DONE
         </h2>
-        <div ref={dropDone} className={`space-y-4 ${isOverDone ? "bg-gray-300 " : ""} min-h-96`}>
+        <div ref={dropDone} className={`space-y-4 ${isOverDone ? "bg-gray-300 " : ""} lg:min-h-96`}>
           {taskDone.map((dones, idx) => (
             <Done key={idx} dones={dones} refetch={doneUpdate} />
           ))}
