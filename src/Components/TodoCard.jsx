@@ -2,26 +2,30 @@
 import { BsCalendarDate } from 'react-icons/bs';
 import { FaEllipsisH } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { useAxios } from '../Hooks/useAxios';
 import Swal from 'sweetalert2';
+import { useDrag } from 'react-dnd';
 
-const TodoCard = () => {
+const TodoCard = ({ todo, refetch }) => {
+  const { title, description, _id, timestamp, category } = todo
+  
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "task",
+    item: { id: _id, category: category },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging()
+    })
+  }))
 
-  const [todos, setTodo] = useState([])
+  
+ 
   const axios = useAxios()
-
-  useEffect(() => {
-    axios.get('/tasks?category=TODO')
-      .then(res => {
-        setTodo(res.data)
-      })
- },[axios])
   
   const handleDelete = (todo) => {
     axios.delete(`/task/${todo._id}`)
       .then(res => {
         if (res.data.deletedCount) {
+          refetch()
           Swal.fire({
             title: `${todo.title}`,
             text: "Has Been Deleted",
@@ -33,12 +37,10 @@ const TodoCard = () => {
 
  
   return (
-    <div className='space-y-4'>
-      {
-        todos.map((todo,idx) => (
-          <div key={idx} className="bg-white rounded-lg shadow-md p-4 w-96">
+    <div ref={drag} className='space-y-4'>
+          <div  className=" rounded-lg shadow-md p-4 w-96">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">{todo.title}</h2>
+              <h2 className="text-lg font-semibold">{title}</h2>
               <div>
                 <div className="dropdown">
                   <div tabIndex={0} role="button" className="cursor-pointer m-1"> <FaEllipsisH /></div>
@@ -51,18 +53,15 @@ const TodoCard = () => {
             </div>
 
             <p className="text-gray-600 mb-4">
-              {todo.description}
+              {description}
             </p>
 
             <div className="flex items-center">
               <BsCalendarDate className="mr-1" />
-              <span className="text-sm">{todo.timestamp}</span>
+              <span className="text-sm">{timestamp}</span>
             </div>
 
           </div>
-
-        ))
-      }
    </div>
   );
 };

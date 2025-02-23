@@ -2,53 +2,66 @@
 import { BsCalendarDate } from 'react-icons/bs';
 import { FaEllipsisH } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { useAxios } from '../Hooks/useAxios';
+import Swal from 'sweetalert2';
+import { useDrag } from 'react-dnd';
 
-const Progress = () => {
+const Progress = ({ prog, refetch }) => {
+  const { title, description, _id, timestamp, category } = prog
 
-  const [progress, setProgress] = useState([])
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "task",
+    item: { id: _id, category: category },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging()
+    })
+  }))
+
+ 
+
   const axios = useAxios()
 
-  useEffect(() => {
-    axios.get('/tasks?category=PROGRESS')
+  const handleDelete = (progress) => {
+    axios.delete(`/task/${progress._id}`)
       .then(res => {
-        setProgress(res.data)
+        if (res.data.deletedCount) {
+          refetch()
+          Swal.fire({
+            title: `${progress.title}`,
+            text: "Has Been Deleted",
+            icon: "success"
+          });
+        }
       })
+  }
 
- },[axios])
 
   return (
-    <div className='space-y-4'>
-      {
-        progress.map((progress, idx) => (
-          <div key={idx} className="bg-white rounded-lg shadow-md p-4 w-96">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">{progress.title}</h2>
-              <div>
-                <div className="dropdown">
-                  <div tabIndex={0} role="button" className="cursor-pointer m-1"> <FaEllipsisH /></div>
-                  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                    <li><Link to={`/update`}>Update</Link></li>
-                    <li><button>Delete Task</button></li>
-                  </ul>
-                </div>
-              </div>
+    <div ref={drag} className='space-y-4'>
+      <div className=" rounded-lg shadow-md p-4 w-96">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold">{title}</h2>
+          <div>
+            <div className="dropdown">
+              <div tabIndex={0} role="button" className="cursor-pointer m-1"> <FaEllipsisH /></div>
+              <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                <li><Link to={`/update/${prog._id}`}>Update</Link></li>
+                <li><button onClick={() => handleDelete(prog)}>Delete Task</button></li>
+              </ul>
             </div>
-
-            <p className="text-gray-600 mb-4">
-              {progress.description}
-            </p>
-
-            <div className="flex items-center">
-              <BsCalendarDate className="mr-1" />
-              <span className="text-sm">{progress.timestamp}</span>
-            </div>
-
           </div>
+        </div>
 
-        ))
-      }
+        <p className="text-gray-600 mb-4">
+          {description}
+        </p>
+
+        <div className="flex items-center">
+          <BsCalendarDate className="mr-1" />
+          <span className="text-sm">{timestamp}</span>
+        </div>
+
+      </div>
     </div>
   );
 };
